@@ -3,414 +3,194 @@ from pathlib import Path
 html = r'''<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#180b2b">
-  <title>Correnteza — Arte, identidade e nordestinidade</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f5c900">
+<title>Correnteza — Arte, identidade e nordestinidade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;600;700;800&family=Rye&display=swap" rel="stylesheet">
+<style>
+:root{
+  --yellow:#ffd21a;--gold:#f5bd00;--red:#ed3028;--orange:#ff5c00;
+  --blue:#0755d9;--cyan:#00c4d8;--black:#17120f;--paper:#fff2d2;
+  --cream:#f7e8c7;--purple:#6427a2;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--yellow);color:var(--black);font-family:"DM Sans",sans-serif}
+.cover{
+  min-height:100svh;position:relative;overflow:hidden;isolation:isolate;
+  display:grid;grid-template-rows:auto 1fr auto;
+  padding:22px clamp(18px,4vw,58px) 20px;
+  background:var(--yellow);
+}
+.cover:after{
+  content:"";position:absolute;inset:0;z-index:5;pointer-events:none;opacity:.13;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+}
+.masthead,.foot{display:flex;justify-content:space-between;align-items:center;gap:20px;position:relative;z-index:8;font:10px "DM Mono",monospace;letter-spacing:.16em;text-transform:uppercase}
+.masthead{color:var(--black)}
+.masthead strong{font:normal 16px "Rye",serif;letter-spacing:.03em}
+.masthead .issue{text-align:right;line-height:1.7}
+.poster{
+  position:relative;z-index:2;min-height:650px;display:grid;place-items:center;
+  margin:10px -2vw;overflow:hidden;
+}
+.artboard{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
+.titleblock{position:relative;text-align:center;z-index:4;transform:rotate(-3deg);margin-top:-4vh}
+.kicker{display:inline-block;background:var(--black);color:var(--yellow);padding:8px 13px;font:10px "DM Mono",monospace;letter-spacing:.18em;text-transform:uppercase;transform:rotate(2deg);margin-bottom:14px}
+h1{
+  font:normal clamp(4.2rem,15vw,13rem)/.82 "Rye",Georgia,serif;
+  letter-spacing:-.07em;margin:0;color:var(--paper);
+  -webkit-text-stroke:2px var(--black);
+  text-shadow:5px 6px 0 var(--blue),10px 12px 0 var(--red),14px 17px 0 var(--black);
+  filter:drop-shadow(0 4px 0 #17120f22);
+}
+.subtitle{
+  display:table;margin:34px auto 0;background:var(--red);color:var(--yellow);
+  padding:13px 22px 15px;max-width:660px;
+  font:800 clamp(1.1rem,2.7vw,2.3rem)/1.04 "Archivo Black",sans-serif;
+  text-transform:uppercase;letter-spacing:-.035em;transform:rotate(2deg);
+  box-shadow:7px 7px 0 var(--black);text-wrap:balance;
+}
+.subtitle span{color:var(--paper)}
+.annotation{
+  position:absolute;z-index:4;font:10px "DM Mono",monospace;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--black);background:var(--paper);
+  padding:7px 9px;border:1px solid var(--black);box-shadow:3px 3px 0 var(--black);
+}
+.note-a{left:5%;top:16%;transform:rotate(-7deg)}
+.note-b{right:5%;bottom:17%;transform:rotate(5deg)}
+.note-c{left:9%;bottom:10%;background:var(--blue);color:white;transform:rotate(4deg)}
+.foot{color:var(--black)}
+.foot .scroll{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--black);font-weight:500}
+.scroll b{display:grid;place-items:center;width:31px;height:31px;border:1.5px solid var(--black);border-radius:50%;font-size:18px;animation:bob 1.5s infinite}
+@keyframes bob{50%{transform:translateY(4px)}}
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght,SOFT,WONK@9..144,700,20,1;9..144,800,20,1;9..144,900,20,1&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --night: #180b2b;
-      --deep: #230558;
-      --purple: #6427a2;
-      --lilac: #d2b9ff;
-      --orange: #ff5c00;
-      --paper: #f4eee8;
-      --ink: #1b1024;
-      --muted: #c5b4d2;
-      --mono: "DM Mono", monospace;
-      --sans: "DM Sans", sans-serif;
-      --serif: "Fraunces", Georgia, serif;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      min-height: 100%;
-      background: var(--night);
-      color: var(--paper);
-      font-family: var(--sans);
-    }
-
-    .cover {
-      min-height: 100svh;
-      position: relative;
-      isolation: isolate;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 28px clamp(22px, 5vw, 76px) 30px;
-      background:
-        radial-gradient(ellipse at 12% 15%, #6322a2 0%, transparent 35%),
-        radial-gradient(ellipse at 87% 72%, #6b174d 0%, transparent 32%),
-        linear-gradient(135deg, #180b2b 0%, #230558 48%, #13091f 100%);
-    }
-
-    /* Granulação sutil para tirar o aspecto de fundo digital chapado */
-    .cover::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      opacity: .13;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
-      mix-blend-mode: soft-light;
-    }
-
-    .topline, .bottomline {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      position: relative;
-      z-index: 5;
-    }
-
-    .wordmark {
-      font: 500 11px var(--mono);
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: var(--lilac);
-    }
-
-    .edition {
-      font: 400 10px var(--mono);
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: #d9cce5;
-      text-align: right;
-    }
-
-    .stage {
-      width: min(1250px, 100%);
-      margin: auto;
-      padding: 7vh 0 8vh;
-      position: relative;
-      z-index: 2;
-      text-align: center;
-    }
-
-    .pretitle {
-      font: 400 10px var(--mono);
-      letter-spacing: .32em;
-      text-transform: uppercase;
-      color: var(--orange);
-      margin: 0 0 22px;
-    }
-
-    h1 {
-      margin: 0;
-      position: relative;
-      display: inline-block;
-      font: 900 clamp(4.1rem, 15vw, 13.5rem)/.82 var(--serif);
-      letter-spacing: -.085em;
-      color: var(--paper);
-      text-shadow: 0 7px 0 #5c2690, 0 18px 55px #08030f88;
-      filter: url(#water-distortion);
-      animation: title-float 7s ease-in-out infinite;
-    }
-
-    h1::after {
-      content: "";
-      position: absolute;
-      left: 5%;
-      right: 0;
-      bottom: -.16em;
-      height: .18em;
-      background: linear-gradient(90deg, transparent, #d2b9ff99, #ff5c00aa, transparent);
-      filter: blur(13px);
-      opacity: .65;
-      z-index: -1;
-    }
-
-    @keyframes title-float {
-      0%, 100% { transform: translateY(0) skewX(0); }
-      50% { transform: translateY(5px) skewX(-.5deg); }
-    }
-
-    .subtitle {
-      max-width: 670px;
-      margin: clamp(30px, 5vw, 58px) auto 0;
-      font: 700 clamp(1.35rem, 3.3vw, 2.9rem)/1.08 var(--serif);
-      color: var(--lilac);
-      text-wrap: balance;
-    }
-
-    .subtitle em {
-      color: var(--paper);
-      font-style: normal;
-    }
-
-    /* Composição gráfica inspirada no encontro das margens do São Francisco */
-    .river-art {
-      position: absolute;
-      z-index: 0;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
-
-    .river-line {
-      fill: none;
-      stroke-linecap: round;
-      stroke-width: 1.2;
-      opacity: .55;
-      stroke-dasharray: 8 13;
-      animation: river-flow 22s linear infinite;
-    }
-
-    .river-line.bold {
-      stroke-width: 15;
-      stroke-dasharray: 1 0;
-      opacity: .09;
-      filter: blur(13px);
-    }
-
-    @keyframes river-flow {
-      to { stroke-dashoffset: -420; }
-    }
-
-    .sun {
-      position: absolute;
-      width: clamp(110px, 19vw, 245px);
-      aspect-ratio: 1;
-      border-radius: 50%;
-      right: 10%;
-      top: 17%;
-      z-index: -1;
-      background: radial-gradient(circle at 35% 30%, #ffb05a, #ff5c00 48%, #a72a35 75%);
-      opacity: .88;
-      box-shadow: 0 0 80px #ff5c0040;
-      mix-blend-mode: screen;
-    }
-
-    .sun::after {
-      content: "";
-      position: absolute;
-      inset: 13%;
-      border: 1px solid #ffe0bc88;
-      border-radius: 50%;
-    }
-
-    .stamp {
-      position: absolute;
-      left: 8%;
-      top: 25%;
-      width: 115px;
-      height: 115px;
-      border: 1px solid #d2b9ff88;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      transform: rotate(-13deg);
-      color: var(--lilac);
-      font: 9px/1.5 var(--mono);
-      letter-spacing: .13em;
-      text-align: center;
-      text-transform: uppercase;
-    }
-
-    .stamp::before, .stamp::after {
-      content: "";
-      position: absolute;
-      inset: 8px;
-      border: 1px dashed #d2b9ff55;
-      border-radius: 50%;
-    }
-
-    .stamp::after {
-      inset: 45px;
-      background: var(--orange);
-      border: 0;
-      box-shadow: 0 0 25px #ff5c00aa;
-    }
-
-    .drop {
-      position: absolute;
-      width: 8px;
-      height: 17px;
-      border-radius: 70% 30% 65% 35%;
-      background: linear-gradient(145deg, #fff, var(--lilac) 65%, #8c55ca);
-      box-shadow: 0 0 16px #d2b9ff88;
-      animation: drip 4.5s ease-in infinite;
-      pointer-events: none;
-    }
-
-    .drop:nth-of-type(1) { left: 23%; top: 49%; animation-delay: .4s; }
-    .drop:nth-of-type(2) { left: 76%; top: 43%; animation-delay: 1.7s; width: 6px; }
-    .drop:nth-of-type(3) { left: 68%; top: 57%; animation-delay: 2.5s; }
-    .drop:nth-of-type(4) { left: 34%; top: 60%; animation-delay: 1.1s; width: 5px; }
-
-    @keyframes drip {
-      0% { transform: translateY(0) scale(.6); opacity: 0; }
-      15% { opacity: .95; }
-      75% { opacity: .8; }
-      100% { transform: translateY(95px) scale(.25); opacity: 0; }
-    }
-
-    .place-label {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 16px;
-      margin-top: 42px;
-      color: #e5d8ee;
-      font: 10px var(--mono);
-      letter-spacing: .2em;
-      text-transform: uppercase;
-    }
-
-    .place-label .dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--orange);
-      box-shadow: 0 0 12px var(--orange);
-    }
-
-    .bottomline {
-      font: 10px var(--mono);
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      color: #c6b6d1;
-    }
-
-    .scroll-cue {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      color: var(--orange);
-    }
-
-    .scroll-cue .arrow {
-      width: 34px;
-      height: 34px;
-      border: 1px solid #ff5c0088;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      animation: nudge 1.8s ease-in-out infinite;
-    }
-
-    @keyframes nudge {
-      50% { transform: translateY(5px); }
-    }
-
-    .next-sections-note {
-      display: none;
-    }
-
-    @media (max-width: 700px) {
-      .cover { padding: 22px 20px 25px; min-height: 100svh; }
-      .edition { max-width: 135px; line-height: 1.6; }
-      .stage { padding: 9vh 0 11vh; }
-      h1 { font-size: clamp(4rem, 19vw, 8rem); }
-      .subtitle { max-width: 430px; }
-      .sun { right: -5%; top: 18%; opacity: .55; }
-      .stamp { width: 76px; height: 76px; left: 5%; top: 16%; font-size: 6px; }
-      .stamp::after { inset: 30px; }
-      .place-label { flex-wrap: wrap; gap: 9px; font-size: 8px; }
-      .bottomline { font-size: 8px; }
-      .bottomline .credit { display: none; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
-    }
-  </style>
+/* Desenhos vetoriais: ponte, rio, dança, teatro e artes gráficas */
+.squiggle{fill:none;stroke:var(--cyan);stroke-width:8;stroke-linecap:round;stroke-linejoin:round;paint-order:stroke;filter:drop-shadow(3px 3px 0 var(--blue))}
+.riverline{fill:none;stroke:var(--blue);stroke-width:45;stroke-linecap:round;stroke-linejoin:round}
+.riveredge{fill:none;stroke:var(--cyan);stroke-width:5;stroke-linecap:round;stroke-dasharray:2 12}
+.doodle-line{fill:none;stroke:var(--black);stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+.doodle-white{fill:none;stroke:var(--paper);stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+.mask{fill:var(--red);stroke:var(--black);stroke-width:5}
+@media(max-width:720px){
+ .cover{padding:18px 15px 16px}
+ .poster{min-height:690px;margin:0 -12px}
+ .titleblock{margin-top:0}
+ h1{font-size:clamp(4rem,18vw,8rem);text-shadow:3px 4px 0 var(--blue),6px 8px 0 var(--red),9px 12px 0 var(--black)}
+ .subtitle{font-size:clamp(1rem,4.5vw,1.5rem);max-width:85%;padding:11px 13px;margin-top:26px}
+ .note-a{left:2%;top:8%;font-size:8px}.note-b{right:2%;bottom:12%;font-size:8px}.note-c{left:3%;bottom:5%;font-size:8px}
+ .masthead,.foot{font-size:8px;letter-spacing:.09em}.masthead strong{font-size:13px}
+ .artboard{transform:scale(1.3)}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important}}
+</style>
 </head>
 <body>
-  <main class="cover" id="inicio">
-    <svg class="river-art" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-      <defs>
-        <linearGradient id="riverGradient" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#d2b9ff"/>
-          <stop offset=".48" stop-color="#8b4bc4"/>
-          <stop offset="1" stop-color="#ff5c00"/>
-        </linearGradient>
-      </defs>
-      <path class="river-line bold" stroke="url(#riverGradient)"
-        d="M-100 670 C180 520 250 800 510 640 S900 420 1100 600 S1390 760 1550 500"/>
-      <path class="river-line" stroke="url(#riverGradient)"
-        d="M-100 690 C180 540 250 820 510 660 S900 440 1100 620 S1390 780 1550 520"/>
-      <path class="river-line" stroke="#d2b9ff"
-        d="M-100 730 C180 580 250 860 510 700 S900 480 1100 660 S1390 820 1550 560"/>
-      <path class="river-line" stroke="#ff5c00"
-        d="M-100 625 C180 475 250 755 510 595 S900 375 1100 555 S1390 715 1550 455"/>
-      <path class="river-line" stroke="#ffffff"
-        d="M-100 770 C180 620 250 900 510 740 S900 520 1100 700 S1390 860 1550 600"/>
+<main class="cover" id="inicio">
+  <header class="masthead">
+    <strong>Correnteza</strong>
+    <span class="issue">Caderno visual · 01<br>Petrolina / Juazeiro</span>
+  </header>
+
+  <section class="poster" aria-label="Capa da reportagem Correnteza">
+    <svg class="artboard" viewBox="0 0 1440 850" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <!-- rio serpenteando pelo cartaz -->
+      <path class="riverline" d="M-80 190 C120 60 240 300 390 190 S650 65 770 190 S1010 330 1140 185 S1350 70 1530 210"/>
+      <path class="riveredge" d="M-80 190 C120 60 240 300 390 190 S650 65 770 190 S1010 330 1140 185 S1350 70 1530 210"/>
+      <path class="riverline" d="M-100 650 C80 480 250 770 430 610 S680 430 820 600 S1100 790 1260 600 S1430 510 1540 610" opacity=".95"/>
+      <path class="riveredge" d="M-100 650 C80 480 250 770 430 610 S680 430 820 600 S1100 790 1260 600 S1430 510 1540 610"/>
+
+      <!-- sol / disco de xilogravura pop -->
+      <circle cx="1180" cy="165" r="112" fill="#ed3028" stroke="#17120f" stroke-width="8"/>
+      <circle cx="1180" cy="165" r="86" fill="none" stroke="#ffd21a" stroke-width="5" stroke-dasharray="4 12"/>
+      <path d="M1070 165H1290M1180 55V275M1100 85L1260 245M1260 85L1100 245" class="doodle-line"/>
+
+      <!-- ponte entre as cidades -->
+      <g transform="translate(930 420) rotate(-8)">
+        <path d="M-160 80 Q0 -30 170 80" fill="none" stroke="#17120f" stroke-width="12"/>
+        <path d="M-170 80H180M-130 80V-5M-80 80V-35M-25 80V-50M30 80V-43M85 80V-25M140 80V0" class="doodle-line"/>
+        <path d="M-185 92H195" stroke="#ed3028" stroke-width="13" stroke-linecap="round"/>
+        <path d="M-130 95V130M-70 95V130M-10 95V130M50 95V130M110 95V130" class="doodle-line"/>
+      </g>
+
+      <!-- máscaras / teatro -->
+      <g transform="translate(260 390) rotate(-13)">
+        <path class="mask" d="M-85 -70 Q0 -125 82 -65 L70 42 Q0 130 -75 42Z"/>
+        <path d="M-48 -22Q-25 -42 -8 -20M22 -20Q43 -42 60 -18" class="doodle-white"/>
+        <path d="M-32 38Q0 12 39 42" class="doodle-line"/>
+        <path d="M-47 12L-60 28M47 10L60 27" class="doodle-white"/>
+      </g>
+      <g transform="translate(1260 570) rotate(15)">
+        <path d="M-68 -60Q0 -105 68 -60L58 38Q0 110 -58 38Z" fill="#0755d9" stroke="#17120f" stroke-width="6"/>
+        <path d="M-38 -18Q-20 -38 -4 -17M15 -17Q35 -38 48 -14" class="doodle-white"/>
+        <path d="M-30 35Q0 58 34 30" class="doodle-white"/>
+      </g>
+
+      <!-- figura dançando -->
+      <g transform="translate(500 510) rotate(8)">
+        <circle cx="0" cy="-112" r="31" fill="#17120f"/>
+        <path d="M-15 -78Q-55 -10 -20 58L28 55Q70 -10 18 -78Z" fill="#ff5c00" stroke="#17120f" stroke-width="7"/>
+        <path d="M-20 -55Q-115 -130 -150 -75M20 -54Q100 -160 145 -110" fill="none" stroke="#17120f" stroke-width="16" stroke-linecap="round"/>
+        <path d="M-15 52L-95 165M25 52L115 150" fill="none" stroke="#17120f" stroke-width="17" stroke-linecap="round"/>
+        <path d="M-160 -83L-190 -110M145 -112L180 -145" class="squiggle"/>
+      </g>
+
+      <!-- elementos gráficos / pincel e lápis -->
+      <g transform="translate(180 690) rotate(-28)">
+        <rect x="-12" y="-110" width="24" height="180" rx="8" fill="#ed3028" stroke="#17120f" stroke-width="5"/>
+        <path d="M-12 -110L0 -155L12 -110Z" fill="#17120f"/>
+        <path d="M-12 35H12" stroke="#ffd21a" stroke-width="7"/>
+      </g>
+      <g transform="translate(1110 700) rotate(35)">
+        <path d="M0 -105Q-28 -40 -18 55L0 100L18 55Q28 -40 0 -105Z" fill="#f7e8c7" stroke="#17120f" stroke-width="6"/>
+        <path d="M-18 55H18" stroke="#ed3028" stroke-width="9"/>
+      </g>
+
+      <!-- rabiscos de água / movimento -->
+      <path d="M80 300q55 -45 110 0t110 0M1020 300q55 -45 110 0t110 0" class="squiggle"/>
+      <path d="M60 520q35 -30 70 0t70 0M1320 330q35 -30 70 0t70 0" class="doodle-line"/>
+      <path d="M700 80q35 -28 70 0t70 0M680 740q35 -28 70 0t70 0" class="doodle-white"/>
+      <g fill="#17120f">
+        <circle cx="350" cy="95" r="7"/><circle cx="850" cy="110" r="6"/><circle cx="1380" cy="450" r="8"/>
+        <circle cx="740" cy="320" r="5"/><circle cx="90" cy="760" r="6"/>
+      </g>
+      <g fill="#ed3028" stroke="#17120f" stroke-width="4">
+        <path d="M720 270l10 22 24 2-18 16 5 23-21-12-21 12 5-23-18-16 24-2Z"/>
+        <path d="M310 555l8 18 20 2-15 13 4 20-17-10-17 10 4-20-15-13 20-2Z"/>
+      </g>
     </svg>
 
-    <div class="sun" aria-hidden="true"></div>
-    <div class="stamp" aria-hidden="true">Duas margens<br>um rio<br>muitas vozes</div>
-    <span class="drop" aria-hidden="true"></span>
-    <span class="drop" aria-hidden="true"></span>
-    <span class="drop" aria-hidden="true"></span>
-    <span class="drop" aria-hidden="true"></span>
+    <div class="annotation note-a">Duas margens · um rio</div>
+    <div class="annotation note-b">Arte em movimento</div>
+    <div class="annotation note-c">Vale do São Francisco / PE — BA</div>
 
-    <header class="topline">
-      <div class="wordmark">Projeto editorial · 2026</div>
-      <div class="edition">Petrolina — Juazeiro<br>Territórios em movimento</div>
-    </header>
+    <div class="titleblock">
+      <div class="kicker">Uma reportagem especial</div>
+      <h1>Correnteza</h1>
+      <p class="subtitle">Uma reportagem sobre<br><span>arte, identidade e nordestinidade</span></p>
+    </div>
+  </section>
 
-    <section class="stage" aria-labelledby="title">
-      <p class="pretitle">Uma reportagem sobre arte, território e memória</p>
-      <h1 id="title">Correnteza</h1>
-      <p class="subtitle">Uma reportagem sobre<br><em>arte, identidade e nordestinidade</em></p>
-      <div class="place-label">
-        <span>Petrolina</span><span class="dot"></span>
-        <span>Rio São Francisco</span><span class="dot"></span>
-        <span>Juazeiro</span>
-      </div>
-    </section>
+  <footer class="foot">
+    <span>Teatro · desenho · dança · memória</span>
+    <a class="scroll" href="#proxima"><span>Deslize para entrar</span><b>↓</b></a>
+    <span>Petrolina ↔ Juazeiro</span>
+  </footer>
+</main>
 
-    <footer class="bottomline">
-      <span>Histórias que atravessam as margens</span>
-      <a class="scroll-cue" href="#proxima" aria-label="Ir para a próxima parte">
-        <span>Deslize para atravessar</span>
-        <span class="arrow">↓</span>
-      </a>
-      <span class="credit">Arte · Cultura · Nordeste</span>
-    </footer>
-  </main>
-
-  <!--
-    A CAPA TERMINA AQUI.
-    Quando for construir o restante, acrescente as seções nesta ordem:
-
-    1. Antes da História, as Histórias
-       O desenvolvimento de uma região e as memórias que ficaram
-       à margem dos equipamentos oficiais.
-
-    2. Fomento Cultural nas Margens do Velho Chico
-
-    O ponto abaixo é apenas uma âncora temporária para o botão de rolagem.
-    Substitua-o pela primeira seção quando começar a desenvolver a reportagem.
-  -->
-  <div id="proxima" class="next-sections-note" aria-hidden="true"></div>
-
-  <svg width="0" height="0" aria-hidden="true" style="position:absolute">
-    <filter id="water-distortion">
-      <feTurbulence type="fractalNoise" baseFrequency=".012 .055" numOctaves="2" seed="7">
-        <animate attributeName="baseFrequency" dur="8s"
-          values=".012 .055;.018 .075;.012 .055" repeatCount="indefinite"/>
-      </feTurbulence>
-      <feDisplacementMap in="SourceGraphic" scale="7" xChannelSelector="R" yChannelSelector="G"/>
-    </filter>
-  </svg>
+<!-- As próximas seções serão construídas depois, nesta ordem:
+     1. Antes da História, as Histórias
+        O desenvolvimento de uma região e as memórias que ficaram
+        à margem dos equipamentos oficiais.
+     2. Fomento Cultural nas Margens do Velho Chico
+-->
+<div id="proxima" aria-hidden="true"></div>
 </body>
 </html>
 '''
-
-path = Path("/mnt/data/correnteza_capa.html")
+path = Path("/mnt/data/index.html")
 path.write_text(html, encoding="utf-8")
-print(f"Arquivo criado: {path} ({len(html):,} caracteres)")
+print(f"Novo index.html criado: {path} ({len(html):,} caracteres)")
