@@ -1,12 +1,307 @@
-<!DOCTYPE html>
-<html lang="en">
+from pathlib import Path
+
+html = r'''<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100817">
+<title>Correnteza — Arte, identidade e nordestinidade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,700;6..96,800;6..96,900&family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800;9..144,900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#100817; --deep:#230558; --purple:#5b20a5; --lilac:#D2B9FF;
+  --orange:#FF5C00; --cream:#fff5e8; --muted:#b9a9c9;
+  --serif:"Fraunces",Georgia,serif; --display:"Bodoni Moda",Georgia,serif;
+  --sans:"DM Sans",Arial,sans-serif; --page:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--ink);color:var(--cream);font-family:var(--sans);overflow-x:hidden}
+a{color:inherit}
+.progress{position:fixed;inset:0 auto auto 0;height:3px;width:0;background:var(--orange);z-index:30}
+.topbar{position:fixed;top:0;left:0;width:100%;z-index:20;padding:18px 5vw;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(#100817dd,transparent);transition:background .3s}
+.topbar.scrolled{background:#100817ed;backdrop-filter:blur(12px)}
+.brand{font:800 18px var(--display);letter-spacing:.04em;text-decoration:none}
+.brand span{color:var(--orange)}
+.nav{display:flex;gap:22px;font-size:11px;letter-spacing:.13em;text-transform:uppercase}
+.nav a{text-decoration:none;color:#e6dced;opacity:.8}
+.nav a:hover{color:var(--orange);opacity:1}
+.menu-btn{display:none;background:none;border:1px solid #ffffff55;color:white;padding:8px 12px}
+.hero{min-height:100svh;position:relative;display:grid;place-items:center;text-align:center;overflow:hidden;isolation:isolate;padding:110px 20px 100px;background:
+ radial-gradient(ellipse at 12% 25%,#4a0877 0,transparent 38%),
+ radial-gradient(ellipse at 88% 24%,#6e174d 0,transparent 34%),
+ radial-gradient(ellipse at 55% 95%,#230558 0,transparent 55%),#100817}
+.hero:before,.hero:after{content:"";position:absolute;inset:-45%;z-index:-1;pointer-events:none}
+.hero:before{background:conic-gradient(from 20deg,transparent,#6b28a8 12%,transparent 25%,#ff5c0038 38%,transparent 52%,#54218c 70%,transparent 85%);filter:blur(90px);opacity:.55;animation:rotateGlow 28s linear infinite}
+.hero:after{inset:auto -10% -120px;height:330px;background:repeating-radial-gradient(ellipse at 50% 0,transparent 0 28px,#d2b9ff28 30px,transparent 34px 58px),linear-gradient(180deg,transparent,#230558bb 55%,#100817);transform:perspective(400px) rotateX(13deg);animation:water 7s ease-in-out infinite alternate}
+@keyframes rotateGlow{to{transform:rotate(360deg)}}
+@keyframes water{to{transform:perspective(400px) rotateX(13deg) translateX(24px)}}
+.orb{position:absolute;width:38vw;height:38vw;max-width:520px;max-height:520px;border-radius:50%;filter:blur(100px);opacity:.24;z-index:-1;animation:drift 9s ease-in-out infinite alternate}
+.orb.one{background:#7513bd;left:-15%;top:10%}.orb.two{background:#ff5c00;right:-17%;bottom:4%;animation-delay:2s}
+@keyframes drift{to{transform:translate(70px,-35px)}}
+.hero-inner{max-width:1100px;position:relative;z-index:2}
+.eyebrow{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--lilac);margin-bottom:20px}
+.hero h1{font:900 clamp(4.2rem,14vw,12rem)/.95 var(--display);letter-spacing:-.075em;margin:0;color:#fff8ef;filter:url(#liquid);text-shadow:0 5px 35px #d2b9ff35;animation:breathe 5s ease-in-out infinite}
+@keyframes breathe{50%{transform:translateY(3px) scaleX(1.012)}}
+.hero-sub{font:800 clamp(1.35rem,3.4vw,3.1rem)/1.05 var(--serif);color:var(--lilac);max-width:760px;margin:36px auto 0;text-wrap:balance}
+.hero-note{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);margin-top:70px}
+.drop{position:absolute;width:9px;height:15px;border-radius:60% 40% 65% 35%;background:linear-gradient(140deg,#fff,#b89aff);box-shadow:0 0 18px #d2b9ff99;animation:fall 3.8s ease-in infinite}
+.drop.d1{left:13%;top:52%;animation-delay:.3s}.drop.d2{left:31%;top:58%;animation-delay:1.7s}.drop.d3{right:18%;top:52%;animation-delay:.9s}.drop.d4{right:34%;top:58%;animation-delay:2.2s}
+@keyframes fall{0%{transform:translateY(0) scale(.6);opacity:0}15%{opacity:1}80%{opacity:.8}100%{transform:translateY(100px) scale(.3);opacity:0}}
+.scroll{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:4;text-decoration:none;color:var(--orange);font-size:10px;letter-spacing:.2em;text-transform:uppercase;display:grid;justify-items:center;gap:12px}
+.scroll i{width:22px;height:39px;border:1px solid var(--orange);border-radius:20px;position:relative}
+.scroll i:after{content:"";position:absolute;width:3px;height:7px;background:var(--orange);border-radius:5px;top:7px;left:8px;animation:scrollDot 1.4s infinite}
+@keyframes scrollDot{to{transform:translateY(17px);opacity:0}}
+main{position:relative}
+.section{padding:120px 6vw;position:relative}
+.wrap{max-width:var(--page);margin:auto}
+.kicker{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--orange);font-weight:700;margin-bottom:18px}
+h2{font:800 clamp(2.5rem,6vw,5.7rem)/.98 var(--serif);letter-spacing:-.045em;margin:0 0 28px;text-wrap:balance}
+h3{font:700 clamp(1.5rem,3vw,2.5rem)/1.05 var(--serif);margin:0 0 18px}
+.lead{font:500 clamp(1.2rem,2vw,1.65rem)/1.55 var(--serif);color:#e5d9ed;max-width:780px}
+.body-copy{font-size:16px;line-height:1.9;color:#d2c7d9;max-width:720px}
+.body-copy p{margin:0 0 22px}
+.intro{background:var(--cream);color:var(--ink)}
+.intro .lead{color:#3d2a4b}.intro .body-copy{color:#51445a}
+.intro-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:7vw;align-items:center}
+.image-placeholder{min-height:430px;position:relative;overflow:hidden;background:
+ linear-gradient(135deg,#5c248a88,#ff5c0066),
+ radial-gradient(circle at 25% 30%,#ff8a31,transparent 32%),
+ linear-gradient(145deg,#230558,#100817 65%);display:grid;place-items:center}
+.image-placeholder:before{content:"";position:absolute;inset:10%;border:1px solid #ffffff55}
+.image-placeholder span{font:800 clamp(2rem,5vw,4rem) var(--serif);text-align:center;color:#fff9;max-width:80%}
+.caption{font-size:11px;line-height:1.5;color:#9d8da8;margin-top:12px}
+.chapter{background:#160d20}
+.chapter:nth-of-type(even){background:#100817}
+.chapter-head{display:grid;grid-template-columns:1fr .7fr;gap:5vw;align-items:end;margin-bottom:55px}
+.chapter-number{font:800 clamp(5rem,14vw,12rem)/.8 var(--display);color:#ffffff0c;letter-spacing:-.08em;text-align:right}
+.chapter-content{display:grid;grid-template-columns:1fr 1fr;gap:6vw;align-items:center}
+.chapter-content.reverse .image-placeholder{order:2}
+.chapter-content .image-placeholder{min-height:520px}
+.quote{padding:55px 7vw;margin:80px 0;background:linear-gradient(110deg,#230558,#351064 65%,#4a174a);border-left:4px solid var(--orange);position:relative;overflow:hidden}
+.quote blockquote{font:700 clamp(1.8rem,4vw,3.7rem)/1.15 var(--serif);margin:0;max-width:950px}
+.quote cite{display:block;font:500 12px var(--sans);font-style:normal;letter-spacing:.12em;text-transform:uppercase;color:var(--lilac);margin-top:25px}
+.gallery{display:grid;grid-template-columns:1.2fr .8fr;gap:14px;margin-top:60px}
+.gallery .image-placeholder{min-height:320px}
+.gallery .image-placeholder:last-child{margin-top:70px;min-height:250px}
+.data-band{background:var(--orange);color:#1a0b20;padding:80px 6vw}
+.data-grid{max-width:var(--page);margin:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:35px}
+.data-item strong{display:block;font:900 clamp(3rem,7vw,6rem)/1 var(--display)}
+.data-item span{display:block;font-size:13px;line-height:1.5;max-width:230px;margin-top:12px}
+.interlude{min-height:65vh;display:grid;place-items:center;text-align:center;padding:100px 20px;background:radial-gradient(ellipse at center,#351064 0,transparent 60%),#100817;position:relative;overflow:hidden}
+.interlude p{font:800 clamp(2.5rem,7vw,6.5rem)/1 var(--display);max-width:1000px;margin:0;color:#fff8ef;filter:url(#liquid)}
+.closing{background:#f1e9fa;color:#1a1020}
+.closing .body-copy{color:#51445a}
+.credits{padding:55px 6vw;background:#0a0610;color:#aa9ab7;font-size:12px;line-height:1.8}
+.credits .wrap{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+.reveal{opacity:0;transform:translateY(35px);transition:opacity .8s ease,transform .8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(max-width:760px){
+ .topbar{padding:15px 20px}.nav{display:none;position:absolute;top:58px;right:20px;background:#160d20;padding:18px;flex-direction:column;gap:16px;border:1px solid #ffffff22}.nav.open{display:flex}.menu-btn{display:block}
+ .hero{min-height:92svh}.hero-sub{margin-top:25px}.hero-note{margin-top:45px}
+ .section{padding:85px 22px}.intro-grid,.chapter-head,.chapter-content{grid-template-columns:1fr;gap:30px}
+ .chapter-number{text-align:left;font-size:6rem}.chapter-content.reverse .image-placeholder{order:0}
+ .chapter-content .image-placeholder{min-height:330px}.image-placeholder{min-height:320px}
+ .gallery{grid-template-columns:1fr}.gallery .image-placeholder:last-child{margin-top:0}
+ .data-grid{grid-template-columns:1fr;gap:35px}.quote{padding:38px 25px;margin:50px 0}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition:none!important}}
+</style>
 </head>
 <body>
-    <p>olá mundo
-    </p>
+<div class="progress" id="progress"></div>
+
+<header class="topbar" id="topbar">
+  <a class="brand" href="#inicio">CORRENTEZA<span>.</span></a>
+  <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">MENU</button>
+  <nav class="nav" id="nav">
+    <a href="#introducao">A reportagem</a>
+    <a href="#arte">Arte</a>
+    <a href="#identidade">Identidade</a>
+    <a href="#nordestinidade">Nordestinidade</a>
+  </nav>
+</header>
+
+<section class="hero" id="inicio">
+  <div class="orb one"></div><div class="orb two"></div>
+  <div class="drop d1"></div><div class="drop d2"></div>
+  <div class="drop d3"></div><div class="drop d4"></div>
+  <svg width="0" height="0" aria-hidden="true">
+    <filter id="liquid">
+      <feTurbulence type="fractalNoise" baseFrequency=".012 .055" numOctaves="2" seed="8">
+        <animate attributeName="baseFrequency" dur="9s" values=".012 .055;.018 .08;.012 .055" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" scale="10" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </svg>
+  <div class="hero-inner">
+    <div class="eyebrow">Uma reportagem especial</div>
+    <h1>Correnteza</h1>
+    <p class="hero-sub">Uma reportagem sobre<br>arte, identidade e nordestinidade</p>
+    <div class="hero-note">Histórias que atravessam territórios</div>
+  </div>
+  <a class="scroll" href="#introducao">Role para explorar <i></i></a>
+</section>
+
+<main id="conteudo">
+  <section class="section intro" id="introducao">
+    <div class="wrap intro-grid">
+      <div class="reveal">
+        <div class="kicker">01 / A reportagem</div>
+        <h2>O que corre por aqui?</h2>
+        <p class="lead">Toda identidade é feita de caminhos, encontros, memórias e movimentos.</p>
+        <div class="body-copy">
+          <p>O Nordeste não cabe em uma imagem única. É território de criação, reinvenção, conflitos, afetos e muitas maneiras de existir.</p>
+          <p>Esta reportagem percorre expressões artísticas e experiências que colocam em movimento as ideias de arte, identidade e nordestinidade. Um convite para olhar além das imagens prontas e escutar quem produz outros sentidos para o lugar.</p>
+          <p><strong>Substitua este texto pela apresentação definitiva da reportagem.</strong></p>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="image-placeholder"><span>INSIRA AQUI<br>UMA IMAGEM DE ABERTURA</span></div>
+        <div class="caption">Legenda da fotografia — nome da pessoa fotografada, local e crédito.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section chapter" id="arte">
+    <div class="wrap">
+      <div class="chapter-head reveal">
+        <div><div class="kicker">02 / Primeiro movimento</div><h2>Arte que nasce do território</h2><p class="lead">Criar também é uma forma de dizer de onde se vem — e para onde se quer ir.</p></div>
+        <div class="chapter-number">01</div>
+      </div>
+      <div class="chapter-content reveal">
+        <div class="image-placeholder"><span>FOTOGRAFIA<br>DE ARTISTA / OBRA</span></div>
+        <div class="body-copy">
+          <h3>Matéria, gesto e criação</h3>
+          <p>Apresente aqui artistas, coletivos, obras e práticas culturais que dialogam com os territórios nordestinos. Conte como os processos criativos se relacionam com a paisagem, a memória, o cotidiano e as experiências de quem cria.</p>
+          <p>Use este espaço para desenvolver a narrativa com entrevistas, observações e informações apuradas pela reportagem.</p>
+          <p><strong>[Inserir fala de artista ou personagem entrevistada/o.]</strong></p>
+        </div>
+      </div>
+      <div class="gallery reveal">
+        <div><div class="image-placeholder"><span>DETALHE DE UMA OBRA</span></div><div class="caption">Legenda e crédito da imagem.</div></div>
+        <div><div class="image-placeholder"><span>PROCESSO CRIATIVO</span></div><div class="caption">Legenda e crédito da imagem.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="quote reveal">
+    <div class="wrap">
+      <blockquote>“[Insira aqui uma fala marcante de uma pessoa entrevistada.]”</blockquote>
+      <cite>Nome da pessoa entrevistada · Local</cite>
+    </div>
+  </section>
+
+  <section class="section chapter" id="identidade">
+    <div class="wrap">
+      <div class="chapter-head reveal">
+        <div><div class="kicker">03 / Segundo movimento</div><h2>Identidade em movimento</h2><p class="lead">Identidade não é retrato parado: é experiência, disputa, memória e transformação.</p></div>
+        <div class="chapter-number">02</div>
+      </div>
+      <div class="chapter-content reverse reveal">
+        <div class="image-placeholder"><span>RETRATO / CENA<br>DO COTIDIANO</span></div>
+        <div class="body-copy">
+          <h3>Quem somos quando contamos nossas próprias histórias?</h3>
+          <p>Desenvolva aqui a discussão sobre pertencimento, identificação e representação. Traga as vozes das pessoas entrevistadas e mostre como elas elaboram suas próprias referências culturais.</p>
+          <p>Este capítulo pode reunir retratos, pequenos perfis, trechos de entrevistas e fotografias do cotidiano.</p>
+          <p><strong>[Inserir depoimento, contexto e crédito.]</strong></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="data-band">
+    <div class="data-grid">
+      <div class="data-item reveal"><strong>01</strong><span>Insira aqui um dado, informação ou marco importante da reportagem.</span></div>
+      <div class="data-item reveal"><strong>02</strong><span>Use este espaço para destacar outro dado contextualizado e com fonte.</span></div>
+      <div class="data-item reveal"><strong>03</strong><span>Um terceiro destaque que ajude o público a compreender o tema.</span></div>
+    </div>
+  </section>
+
+  <section class="section chapter" id="nordestinidade">
+    <div class="wrap">
+      <div class="chapter-head reveal">
+        <div><div class="kicker">04 / Terceiro movimento</div><h2>Nordestinidade: entre imagens e vivências</h2><p class="lead">Entre o que se diz sobre o Nordeste e o que se vive nele, há muitas histórias que ainda precisam circular.</p></div>
+        <div class="chapter-number">03</div>
+      </div>
+      <div class="chapter-content reveal">
+        <div class="image-placeholder"><span>PAISAGEM / CULTURA<br>/ EXPRESSÃO ARTÍSTICA</span></div>
+        <div class="body-copy">
+          <h3>Para além dos estereótipos</h3>
+          <p>Explore as imagens historicamente associadas ao Nordeste e confronte-as com experiências plurais, contemporâneas e situadas. A proposta é mostrar a complexidade da região sem reduzi-la a uma narrativa única.</p>
+          <p>Inclua aqui os relatos, referências culturais e reflexões que sustentam esta parte da reportagem.</p>
+          <p><strong>[Inserir fala ou trecho de entrevista.]</strong></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="interlude">
+    <div class="reveal">
+      <div class="kicker">O movimento continua</div>
+      <p>Toda correnteza transforma o caminho por onde passa.</p>
+    </div>
+  </section>
+
+  <section class="section closing" id="encerramento">
+    <div class="wrap intro-grid">
+      <div class="reveal">
+        <div class="kicker">05 / Encerramento</div>
+        <h2>Toda correnteza deixa marcas.</h2>
+        <div class="body-copy">
+          <p>Finalize a reportagem retomando as questões centrais e as histórias apresentadas. Este é um espaço para uma conclusão autoral, que deixe reverberar as vozes, imagens e ideias que atravessaram a leitura.</p>
+          <p><strong>[Inserir texto de encerramento.]</strong></p>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="image-placeholder"><span>IMAGEM FINAL<br>DA REPORTAGEM</span></div>
+        <div class="caption">Legenda e crédito da imagem final.</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="credits">
+  <div class="wrap">
+    <div><strong style="font:800 22px var(--display);color:#fff">CORRENTEZA<span style="color:var(--orange)">.</span></strong><br>Uma reportagem sobre arte, identidade e nordestinidade.</div>
+    <div>Reportagem: [nomes]<br>Fotografia: [créditos]<br>Edição e produção: [créditos]<br>Fontes e referências: [inserir]</div>
+    <div>© 2026 · Todos os direitos reservados.</div>
+  </div>
+</footer>
+
+<script>
+const progress = document.getElementById('progress');
+const topbar = document.getElementById('topbar');
+function updateScroll(){
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  progress.style.width = (max > 0 ? window.scrollY / max * 100 : 0) + '%';
+  topbar.classList.toggle('scrolled', window.scrollY > 30);
+}
+window.addEventListener('scroll', updateScroll, {passive:true});
+updateScroll();
+
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+const menuBtn = document.getElementById('menuBtn');
+const nav = document.getElementById('nav');
+menuBtn.addEventListener('click',()=>nav.classList.toggle('open'));
+nav.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>nav.classList.remove('open')));
+</script>
 </body>
 </html>
+'''
+
+path = Path("/mnt/data/correnteza.html")
+path.write_text(html, encoding="utf-8")
+print(f"Arquivo criado: {path} — {len(html):,} caracteres")
