@@ -1,595 +1,177 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Correnteza | Arte, identidade e nordestinidade</title>
-
-<style>
-
-/* =================================
-   FONTES
-================================= */
-
-@font-face {
-    font-family: "Aqua Monstera";
-    src: url("./fonts/AquaMonstera.otf") format("opentype");
-    font-weight: normal;
-    font-display: swap;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-:root {
-    --azul: #3269e9;
-    --roxo: #30213f;
-    --creme: #fffde9;
-    --marinho: #101b80;
-    --branco: #ffffff;
-}
-
-body {
-    background: var(--azul);
-    overflow-x: hidden;
-    font-family: Arial, sans-serif;
-}
-
-
-/* =================================
-   MENU SUPERIOR
-================================= */
-
-nav {
-    height: 45px;
-    width: 100%;
-
-    background: var(--roxo);
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 0 25px;
-
-    position: relative;
-    z-index: 10;
-}
-
-/* LOGOTIPO */
-
-.logo {
-    width: 32px;
-    height: 32px;
-
-    border-radius: 50%;
-
-    background: linear-gradient(
-        to bottom,
-        #d9f2ff 0%,
-        #b8e8ff 55%,
-        #8dbb37 56%,
-        #659322 100%
-    );
-
-    position: relative;
-    overflow: hidden;
-}
-
-/* Pequenas montanhas do logo */
-
-.logo::before {
-    content: "";
-    position: absolute;
-
-    width: 40px;
-    height: 18px;
-
-    background: #a4cf43;
-
-    border-radius: 50% 50% 0 0;
-
-    bottom: -8px;
-    left: -5px;
-}
-
-.logo::after {
-    content: "";
-    position: absolute;
-
-    width: 30px;
-    height: 15px;
-
-    background: #77a82f;
-
-    border-radius: 50% 50% 0 0;
-
-    bottom: -7px;
-    right: -8px;
-}
-
-
-/* LINKS */
-
-.menu {
-    display: flex;
-    align-items: center;
-    gap: 23px;
-}
-
-.menu a {
-    color: #c7b9d0;
-
-    text-decoration: none;
-
-    font-family: "Aqua Monstera", Georgia, serif;
-
-    font-size: 15px;
-
-    transition: .3s;
-}
-
-.menu a:hover,
-.menu a.ativo {
-    color: white;
-}
-
-
-/* =================================
-   CAPA PRINCIPAL
-================================= */
-
-.capa {
-    width: 100%;
-    min-height: calc(100vh - 45px);
-
-    background: var(--azul);
-
-    position: relative;
-
-    display: flex;
-    flex-direction: column;
-
-    align-items: center;
-    justify-content: center;
-
-    overflow: hidden;
-}
-
-
-/* =================================
-   CAMINHO DO RIO
-================================= */
-
-.rio {
-    position: absolute;
-
-    width: 100%;
-    height: 100%;
-
-    top: 0;
-    left: 0;
-
-    z-index: 1;
-
-    pointer-events: none;
-}
-
-.rio path {
-    fill: none;
-
-    stroke: #91b8ff;
-
-    stroke-width: 8;
-
-    stroke-linecap: round;
-    stroke-linejoin: round;
-
-    opacity: .75;
-
-    filter: blur(2px);
-
-    stroke-dasharray: 1800;
-    stroke-dashoffset: 0;
-
-    animation: percurso 18s ease-in-out infinite alternate;
-}
-
-@keyframes percurso {
-
-    0% {
-        stroke-dashoffset: 100;
-        transform: translateX(-5px);
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Correnteza</title>
+  
+  <!-- Fonte do subtítulo e cabeçalho -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+
+  <style>
+    /* 1. Importação da Fonte Local */
+    @font-face {
+      font-family: 'Aqua Monstera';
+      src: url('fonts/Aqua Monstera.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
     }
 
-    50% {
-        stroke-dashoffset: 0;
-        transform: translateX(5px);
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    100% {
-        stroke-dashoffset: -100;
-        transform: translateX(-5px);
+    body {
+      background-color: #173347;
+      color: #FFFFFF;
+      font-family: 'Merriweather', serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow-x: hidden;
+      position: relative;
     }
 
-}
-
-
-/* =================================
-   RABISCOS DOS CANTOS
-================================= */
-
-.decoracoes {
-    position: absolute;
-
-    inset: 0;
-
-    width: 100%;
-    height: 100%;
-
-    pointer-events: none;
-
-    z-index: 2;
-}
-
-.decoracoes path {
-    fill: none;
-
-    stroke: #ffffff;
-
-    stroke-width: 1.4;
-
-    opacity: .75;
-
-    stroke-linecap: round;
-}
-
-
-/* =================================
-   CONTEUDO CENTRAL
-================================= */
-
-.conteudo {
-    position: relative;
-
-    z-index: 5;
-
-    width: 100%;
-
-    text-align: center;
-
-    padding: 30px 20px;
-}
-
-
-/* =================================
-   TITULO CORRENTEZA
-================================= */
-
-.titulo {
-    font-family: "Aqua Monstera", sans-serif;
-
-    color: var(--creme);
-
-    font-size: clamp(65px, 12vw, 155px);
-
-    font-weight: normal;
-
-    line-height: 1;
-
-    white-space: nowrap;
-
-    display: inline-block;
-
-    transform-origin: center;
-
-    animation: agua 5s ease-in-out infinite;
-
-    filter: url(#liquido);
-
-    position: relative;
-}
-
-
-/* MOVIMENTO DAS LETRAS */
-
-@keyframes agua {
-
-    0%, 100% {
-        transform: translateY(0) scaleX(1);
+    /* Cabeçalho */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      width: 100%;
     }
 
-    25% {
-        transform: translateY(3px) scaleX(1.012);
+    .icon-placeholder {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(180deg, #78C8E6 0%, #78C8E6 50%, #83C35C 50%, #83C35C 100%);
+      border: 2px solid #FFFFFF;
     }
 
-    50% {
-        transform: translateY(-3px) scaleX(.99);
+    .header-title {
+      font-size: 1.1rem;
+      color: #F4F1EA;
+      font-weight: 300;
     }
 
-    75% {
-        transform: translateY(2px) scaleX(1.008);
+    /* Conteúdo Principal */
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 20px;
+      margin-top: -40px;
+      z-index: 2;
     }
 
-}
-
-
-/* =================================
-   SUBTITULO
-================================= */
-
-.subtitulo {
-
-    color: var(--marinho);
-
-    font-family: Georgia, "Times New Roman", serif;
-
-    font-weight: 900;
-
-    font-size: clamp(24px, 4.1vw, 46px);
-
-    line-height: .96;
-
-    margin-top: 12px;
-
-    max-width: 850px;
-
-    margin-left: auto;
-    margin-right: auto;
-}
-
-
-/* =================================
-   RESPONSIVIDADE
-================================= */
-
-@media (max-width: 768px) {
-
-    nav {
-        padding: 0 14px;
+    /* Aplicação da Fonte Personalizada com Animação */
+    .title-correnteza {
+      font-family: 'Aqua Monstera', sans-serif;
+      font-size: clamp(4.5rem, 12vw, 9.5rem);
+      color: #D2E4EE;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      line-height: 1;
+      
+      /* Efeito de Ondulação de Água */
+      animation: waterWave 4s ease-in-out infinite alternate;
+      transform-origin: center center;
     }
 
-    .menu {
-        gap: 12px;
+    /* Animação do balanço de água */
+    @keyframes waterWave {
+      0% {
+        transform: translateY(0px) skewX(0deg) scaleY(1);
+      }
+      25% {
+        transform: translateY(-4px) skewX(-1.5deg) scaleY(1.02);
+      }
+      50% {
+        transform: translateY(3px) skewX(1deg) scaleY(0.98);
+      }
+      75% {
+        transform: translateY(-2px) skewX(-0.5deg) scaleY(1.01);
+      }
+      100% {
+        transform: translateY(4px) skewX(1.5deg) scaleY(0.99);
+      }
     }
 
-    .menu a {
-        font-size: 12px;
+    .subtitle {
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+      color: #F4F1EA;
+      font-weight: 300;
+      max-width: 600px;
+      line-height: 1.4;
+      margin-bottom: 35px;
     }
 
-    .logo {
-        width: 27px;
-        height: 27px;
+    .btn-work {
+      background-color: #FFFFFF;
+      color: #173347;
+      font-family: Arial, sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 12px 32px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, background-color 0.2s ease;
     }
 
-    .titulo {
-        font-size: 14vw;
-        white-space: normal;
+    .btn-work:hover {
+      transform: scale(1.05);
+      background-color: #F4F1EA;
     }
 
-    .subtitulo {
-        font-size: 6vw;
-        padding: 0 10px;
+    /* Rodapé com Ondas */
+    .footer-waves {
+      width: 100%;
+      line-height: 0;
+      z-index: 1;
     }
 
-    .rio path {
-        stroke-width: 5;
+    .footer-waves svg {
+      width: 100%;
+      height: auto;
+      display: block;
     }
-
-}
-
-@media (prefers-reduced-motion: reduce) {
-
-    .titulo,
-    .rio path {
-        animation: none;
-    }
-
-}
-
-</style>
-
+  </style>
 </head>
-
-
 <body>
 
+  <header>
+    <div class="icon-placeholder"></div>
+    <div class="header-title">Página 1</div>
+  </header>
 
-<!-- =================================
-     FILTRO DE AGUA
-================================= -->
+  <main>
+    <h1 class="title-correnteza">CORRENTEZA</h1>
+    <p class="subtitle">Uma reportagem sobre arte,<br>identidade e nordestinidade</p>
+    <button class="btn-work">WORK WITH ME</button>
+  </main>
 
-<svg width="0" height="0"
-     style="position:absolute">
-
-    <filter id="liquido">
-
-        <feTurbulence
-            type="fractalNoise"
-            baseFrequency="0.012 0.025"
-            numOctaves="2"
-            seed="5"
-            result="ruido">
-
-            <animate
-                attributeName="baseFrequency"
-                values="
-                    0.012 0.025;
-                    0.018 0.035;
-                    0.012 0.025
-                "
-                dur="6s"
-                repeatCount="indefinite"
-            />
-
-        </feTurbulence>
-
-        <feDisplacementMap
-            in="SourceGraphic"
-            in2="ruido"
-            scale="7"
-            xChannelSelector="R"
-            yChannelSelector="G">
-
-            <animate
-                attributeName="scale"
-                values="4;9;5;8;4"
-                dur="5s"
-                repeatCount="indefinite"
-            />
-
-        </feDisplacementMap>
-
-    </filter>
-
-</svg>
-
-
-<!-- =================================
-     MENU
-================================= -->
-
-<nav>
-
-    <div class="logo"></div>
-
-    <div class="menu">
-
-        <a href="#inicio" class="ativo">INÍCIO</a>
-
-        <a href="#historia">Antes da História</a>
-
-        <a href="#fomento">Fomento Cultural</a>
-
-    </div>
-
-</nav>
-
-
-<!-- =================================
-     CAPA
-================================= -->
-
-<section class="capa" id="inicio">
-
-
-    <!-- CAMINHO FLUIDO DO RIO -->
-
-    <svg class="rio"
-         viewBox="0 0 1200 800"
-         preserveAspectRatio="none">
-
-        <path d="
-            M -30 220
-            C 20 190, 20 270, 75 280
-            C 130 290, 130 250, 190 240
-            C 250 230, 290 300, 300 370
-            C 310 440, 340 500, 390 520
-            C 440 540, 390 620, 450 650
-            C 510 680, 550 590, 600 620
-            C 650 650, 650 720, 700 690
-            C 750 660, 730 580, 790 570
-            C 850 560, 900 620, 930 540
-            C 960 460, 910 410, 970 390
-            C 1030 370, 1060 430, 1100 390
-            C 1140 350, 1170 330, 1230 350
-        "/>
-
+  <div class="footer-waves">
+    <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+      <defs>
+        <pattern id="stripes" width="80" height="80" patternTransform="rotate(25)" patternUnits="userSpaceOnUse">
+          <line x1="0" y1="0" x2="0" y2="80" stroke="#D2E4EE" stroke-width="40" />
+          <line x1="40" y1="0" x2="40" y2="80" stroke="#F4F1EA" stroke-width="40" />
+        </pattern>
+      </defs>
+      <path fill="url(#stripes)" d="M0,160 C320,300 420,100 720,240 C1020,380 1120,200 1440,260 L1440,320 L0,320 Z"></path>
     </svg>
-
-
-    <!-- RABISCOS BRANCOS -->
-
-    <svg class="decoracoes"
-         viewBox="0 0 1200 800"
-         preserveAspectRatio="none">
-
-        <!-- CANTO SUPERIOR ESQUERDO -->
-
-        <path d="
-            M -20 0
-            C 20 80, 30 130, 0 180
-            C -30 230, 60 250, 80 200
-            C 100 150, 70 80, 60 0
-        "/>
-
-        <path d="
-            M 20 -20
-            C 60 40, 100 100, 65 150
-        "/>
-
-
-        <!-- CANTO SUPERIOR DIREITO -->
-
-        <path d="
-            M 900 -20
-            C 920 50, 1000 80, 1050 30
-            C 1110 -20, 1160 30, 1120 90
-            C 1080 150, 1040 190, 1100 210
-            C 1150 230, 1200 200, 1230 190
-        "/>
-
-        <path d="
-            M 960 -20
-            C 980 60, 1060 100, 1120 60
-        "/>
-
-
-        <!-- CANTO INFERIOR ESQUERDO -->
-
-        <path d="
-            M -20 730
-            C 40 680, 90 690, 80 750
-            C 70 800, 10 820, -20 780
-        "/>
-
-        <path d="
-            M -10 790
-            C 40 730, 100 740, 120 800
-        "/>
-
-
-        <!-- CANTO INFERIOR DIREITO -->
-
-        <path d="
-            M 1200 650
-            C 1140 610, 1100 660, 1110 720
-            C 1120 780, 1190 810, 1230 770
-        "/>
-
-        <path d="
-            M 1200 730
-            C 1150 690, 1120 730, 1140 790
-        "/>
-
-    </svg>
-
-
-    <!-- TITULO E SUBTITULO -->
-
-    <div class="conteudo">
-
-        <h1 class="titulo">
-            CORRENTEZA
-        </h1>
-
-        <p class="subtitulo">
-            Uma reportagem sobre arte,<br>
-            identidade e nordestinidade
-        </p>
-
-    </div>
-
-
-</section>
-
+  </div>
 
 </body>
-
 </html>
