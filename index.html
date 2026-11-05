@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Correnteza</title>
-  
-  <!-- Fonte do subtítulo e cabeçalho -->
+
+  <!-- Tipografia do Subtítulo -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
 
   <style>
-    /* 1. Importação da Fonte Local */
+    /* 1. Carregamento da Fonte Local */
     @font-face {
       font-family: 'Aqua Monstera';
       src: url('fonts/Aqua Monstera.otf') format('opentype');
@@ -25,152 +25,161 @@
       box-sizing: border-box;
     }
 
-    body {
-      background-color: #173347;
-      color: #FFFFFF;
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
       font-family: 'Merriweather', serif;
-      min-height: 100vh;
+      background-color: #F9F7F2; /* Cor clara do fundo da imagem */
+      color: #1F3547; /* Azul escuro do texto */
+    }
+
+    /* Container Principal ocupando 100% da tela */
+    .hero-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      overflow-x: hidden;
-      position: relative;
+      align-items: center;
     }
 
-    /* Cabeçalho */
+    /* Faixa do Cabeçalho */
     header {
+      width: 100%;
+      height: 50px;
+      background-color: #1F3547;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 40px;
-      width: 100%;
+      padding: 0 25px;
+      z-index: 10;
     }
 
     .icon-placeholder {
-      width: 36px;
-      height: 36px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       background: linear-gradient(180deg, #78C8E6 0%, #78C8E6 50%, #83C35C 50%, #83C35C 100%);
-      border: 2px solid #FFFFFF;
+      border: 1.5px solid #FFFFFF;
     }
 
     .header-title {
-      font-size: 1.1rem;
-      color: #F4F1EA;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.4);
       font-weight: 300;
     }
 
-    /* Conteúdo Principal */
+    /* Ilustração de Fundo (Caiaque no Rio) */
+    .background-drawing {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 85%;
+      max-width: 900px;
+      height: auto;
+      opacity: 0.85;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Bloco Central Perfeitamente Alinhado */
     main {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -52%);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
+      width: 100%;
       padding: 0 20px;
-      margin-top: -40px;
       z-index: 2;
     }
 
-    /* Aplicação da Fonte Personalizada com Animação */
+    /* Título com a Fonte Aqua Monstera e Efeito Água */
     .title-correnteza {
       font-family: 'Aqua Monstera', sans-serif;
-      font-size: clamp(4.5rem, 12vw, 9.5rem);
-      color: #D2E4EE;
+      font-size: clamp(4rem, 13vw, 10rem);
+      color: #1F3547;
       letter-spacing: 2px;
-      margin-bottom: 20px;
       line-height: 1;
+      margin-bottom: 15px;
       
-      /* Efeito de Ondulação de Água */
+      /* Efeito de Balanço/Ondulação de Água */
       animation: waterWave 4s ease-in-out infinite alternate;
       transform-origin: center center;
     }
 
-    /* Animação do balanço de água */
     @keyframes waterWave {
       0% {
         transform: translateY(0px) skewX(0deg) scaleY(1);
       }
       25% {
-        transform: translateY(-4px) skewX(-1.5deg) scaleY(1.02);
+        transform: translateY(-3px) skewX(-1deg) scaleY(1.01);
       }
       50% {
-        transform: translateY(3px) skewX(1deg) scaleY(0.98);
+        transform: translateY(2px) skewX(0.8deg) scaleY(0.99);
       }
       75% {
-        transform: translateY(-2px) skewX(-0.5deg) scaleY(1.01);
+        transform: translateY(-2px) skewX(-0.5deg) scaleY(1.005);
       }
       100% {
-        transform: translateY(4px) skewX(1.5deg) scaleY(0.99);
+        transform: translateY(3px) skewX(1deg) scaleY(0.995);
       }
     }
 
     .subtitle {
-      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
-      color: #F4F1EA;
-      font-weight: 300;
-      max-width: 600px;
+      font-size: clamp(1rem, 2.2vw, 1.5rem);
+      color: #1F3547;
+      font-weight: 400;
       line-height: 1.4;
-      margin-bottom: 35px;
+      max-width: 650px;
     }
 
-    .btn-work {
-      background-color: #FFFFFF;
-      color: #173347;
-      font-family: Arial, sans-serif;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      padding: 12px 32px;
-      border-radius: 50px;
-      border: none;
-      cursor: pointer;
-      transition: transform 0.2s ease, background-color 0.2s ease;
-    }
-
-    .btn-work:hover {
-      transform: scale(1.05);
-      background-color: #F4F1EA;
-    }
-
-    /* Rodapé com Ondas */
-    .footer-waves {
+    /* Onda Azul Escura do Rodapé */
+    .footer-wave {
       width: 100%;
       line-height: 0;
-      z-index: 1;
+      z-index: 3;
     }
 
-    .footer-waves svg {
+    .footer-wave svg {
       width: 100%;
-      height: auto;
+      height: 16vh;
+      min-height: 100px;
       display: block;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="icon-placeholder"></div>
-    <div class="header-title">Página 1</div>
-  </header>
+  <div class="hero-container">
+    <!-- Cabeçalho Superior -->
+    <header>
+      <div class="icon-placeholder"></div>
+      <div class="header-title">Página 1</div>
+    </header>
 
-  <main>
-    <h1 class="title-correnteza">CORRENTEZA</h1>
-    <p class="subtitle">Uma reportagem sobre arte,<br>identidade e nordestinidade</p>
-    <button class="btn-work">WORK WITH ME</button>
-  </main>
+    <!-- Desenho Ilustrativo de Fundo -->
+    <img src="images/desenho-fundo.png" alt="Desenho Caiaque no Rio" class="background-drawing">
 
-  <div class="footer-waves">
-    <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
-      <defs>
-        <pattern id="stripes" width="80" height="80" patternTransform="rotate(25)" patternUnits="userSpaceOnUse">
-          <line x1="0" y1="0" x2="0" y2="80" stroke="#D2E4EE" stroke-width="40" />
-          <line x1="40" y1="0" x2="40" y2="80" stroke="#F4F1EA" stroke-width="40" />
-        </pattern>
-      </defs>
-      <path fill="url(#stripes)" d="M0,160 C320,300 420,100 720,240 C1020,380 1120,200 1440,260 L1440,320 L0,320 Z"></path>
-    </svg>
+    <!-- Conteúdo Centralizado -->
+    <main>
+      <h1 class="title-correnteza">CORRENTEZA</h1>
+      <p class="subtitle">Uma reportagem sobre arte,<br>identidade e nordestinidade</p>
+    </main>
+
+    <!-- Onda Inferior -->
+    <div class="footer-wave">
+      <svg viewBox="0 0 1440 220" preserveAspectRatio="none">
+        <path fill="#1F3547" d="M0,80 C360,180 720,0 1080,120 C1260,180 1380,100 1440,80 L1440,220 L0,220 Z"></path>
+      </svg>
+    </div>
   </div>
 
 </body>
